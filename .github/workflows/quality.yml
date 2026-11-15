@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   quality:
-    uses: dadamagouil/devops/.github/workflows/quality.yml@develop
+    uses: dadamagouil/devops/.github/workflows/quality.yml@v1.0.2
     with:
+      devops-ref: v1.0.2
       runner-labels: ${{ vars.RUNNER_LABELS || '["ubuntu-latest"]' }}
