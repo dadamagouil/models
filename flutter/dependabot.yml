@@ -1,0 +1,38 @@
+# Automatic updates: Dependabot opens one pull request per week and per family of dependencies, and GitHub
+# reports known security flaws. Every pull request goes through the CI checks before merging.
+version: 2
+updates:
+  # Dart / Flutter packages of the app
+  - package-ecosystem: pub
+    directory: /app/{{app}}
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    groups:
+      dart-dependencies:
+        patterns: ["*"]
+
+  # Android libraries (Gradle). Gradle, the Android plugin and Kotlin must stay compatible with the Flutter
+  # version in use: only patch updates (x.y.Z) are proposed automatically, major and minor changes are made by
+  # hand with a full build.
+  - package-ecosystem: gradle
+    directory: /app/{{app}}/android
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+    groups:
+      android-dependencies:
+        patterns: ["*"]
+
+  # Actions used by the workflows (.github/workflows)
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    groups:
+      github-actions:
+        patterns: ["*"]

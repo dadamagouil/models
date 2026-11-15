@@ -1,0 +1,10 @@
+.DS_Store
+*.log
+.env
+.env.*
+# Supabase CLI
+supabase/.temp/
+supabase/.branches/
+# Build output
+public/
+__pycache__/

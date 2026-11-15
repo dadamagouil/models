@@ -1,0 +1,27 @@
+name: Release
+
+# Run by hand (Actions → Release → Run workflow), or by an automated task.
+# Creates vX.Y.Z and its GitHub release when something changed since the last release.
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version type (ignored when a version is forced)
+        type: choice
+        options: [patch, minor, major]
+        default: patch
+      version:
+        description: Forced version (optional, for example v1.0.0)
+        type: string
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    uses: dadamagouil/devops/.github/workflows/tag-release.yml@develop
+    with:
+      bump: ${{ inputs.bump }}
+      version: ${{ inputs.version }}
+      runner-labels: ${{ vars.RUNNER_LABELS || '["ubuntu-latest"]' }}

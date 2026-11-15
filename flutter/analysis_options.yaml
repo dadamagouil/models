@@ -1,0 +1,45 @@
+# Static analysis and formatting (`flutter analyze`, `dart format`): the project's readable-code rules.
+# Run by CI (Flutter checks and Android APK workflows) and before every push.
+include: package:flutter_lints/flutter.yaml
+
+formatter:
+  page_width: 100
+
+analyzer:
+  language:
+    # No implicit "dynamic" that hides mistakes.
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    # A forgotten await on a Future is almost always a bug.
+    unawaited_futures: error
+
+linter:
+  rules:
+    # Explicit types and declarations
+    - always_declare_return_types
+    - prefer_final_locals
+    - prefer_final_in_for_each
+    - prefer_final_fields
+    # Consistent style
+    - prefer_single_quotes
+    - directives_ordering
+    - use_super_parameters
+    - sort_child_properties_last
+    - eol_at_end_of_file
+    - sort_pub_dependencies
+    # No debugging leftovers or useless code
+    - avoid_print
+    - unnecessary_lambdas
+    - unnecessary_await_in_return
+    - avoid_redundant_argument_values
+    # Reliability
+    - unawaited_futures
+    - cancel_subscriptions
+    - close_sinks
+    - avoid_dynamic_calls
+    - avoid_void_async
+    - only_throw_errors
+    - no_runtimeType_toString
+    - use_build_context_synchronously
